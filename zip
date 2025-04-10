@@ -1,0 +1,106 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { MapPin, Stethoscope, BedDouble, Pill, Shield, CreditCard, PlusCircle } from "lucide-react";
+
+export default function MedilinkApp() {
+  const [signedIn, setSignedIn] = useState(false);
+  const [user, setUser] = useState("");
+
+  if (!signedIn) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 p-4">
+        <Card className="w-full max-w-md shadow-lg">
+          <CardContent className="space-y-6 p-6">
+            <h2 className="text-2xl font-bold text-blue-800">Medilink Login</h2>
+            <Input placeholder="Username" onChange={(e) => setUser(e.target.value)} />
+            <Input placeholder="Password" type="password" />
+            <Button className="w-full bg-blue-600 text-white" onClick={() => setSignedIn(true)}>Sign In</Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen p-4 bg-blue-50">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-blue-800">Welcome, {user}</h1>
+        <Button className="bg-red-500 text-white" onClick={() => setSignedIn(false)}>Sign Out</Button>
+      </div>
+
+      <Tabs defaultValue="hospitals" className="w-full">
+        <TabsList className="grid grid-cols-6 mb-4">
+          <TabsTrigger value="hospitals"><BedDouble className="mr-2 h-4 w-4" />Beds</TabsTrigger>
+          <TabsTrigger value="equipment"><PlusCircle className="mr-2 h-4 w-4" />Equipment</TabsTrigger>
+          <TabsTrigger value="medicine"><Pill className="mr-2 h-4 w-4" />Medicine</TabsTrigger>
+          <TabsTrigger value="insurance"><Shield className="mr-2 h-4 w-4" />Insurance</TabsTrigger>
+          <TabsTrigger value="loans"><CreditCard className="mr-2 h-4 w-4" />Loans</TabsTrigger>
+          <TabsTrigger value="doctors"><Stethoscope className="mr-2 h-4 w-4" />Doctors</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="hospitals">
+          <Card>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="font-semibold text-lg">Apollo Hospital</h3>
+              <p>Beds Available: 14</p>
+              <p><MapPin className="inline mr-2" />Ahmedabad, Gujarat</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="equipment">
+          <Card>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="font-semibold text-lg">Oxygen Cylinder</h3>
+              <p>Rent: ₹200/day | Buy: ₹7500</p>
+              <p>Available in: MedEquip Store</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="medicine">
+          <Card>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="font-semibold text-lg">Ibuprofen</h3>
+              <p>Price: ₹35</p>
+              <p>Available at: MedPlus Pharmacy</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="insurance">
+          <Card>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="font-semibold text-lg">Care Health Insurance</h3>
+              <p>Coverage: ₹10 Lakh</p>
+              <p>Monthly Premium: ₹499</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="loans">
+          <Card>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="font-semibold text-lg">Emergency Medical Loan</h3>
+              <p>Up to ₹5 Lakh | Interest: 9% p.a.</p>
+              <p>Provider: Axis Bank</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="doctors">
+          <Card>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="font-semibold text-lg">Dr. Mehta</h3>
+              <p>Specialty: Cardiologist</p>
+              <p><MapPin className="inline mr-2" />CIMS Hospital, Ahmedabad</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
